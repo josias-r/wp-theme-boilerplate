@@ -1,0 +1,68 @@
+@import "modules/variables";
+@import "modules/mixins";
+
+@import "partials/normalize";
+@import "partials/elements";
+@import "partials/gutenberg";
+@import "partials/typo";
+@import "partials/keyframes";
+
+::selection {
+  background: $main-clr;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+main {
+  height: 100%;
+}
+body {
+  background: $mid;
+  font-family: "Montserrat", sans-serif;
+  &.browser-warning {
+    main {
+      background: orange;
+    }
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  > nav,
+  > footer,
+  > div.container {
+    > div {
+      margin: auto;
+      max-width: $desktop;
+    }
+  }
+  div.container {
+    flex: 1 0 auto;
+    > div {
+      > .content {
+        position: relative;
+        > .alignfull {
+          margin-left: calc(50% - 50vw);
+          width: 100vw;
+          max-width: 100vw;
+        }
+        $wide-offset: 50px;
+        > .alignwide {
+          margin-left: -$wide-offset;
+          margin-right: -$wide-offset;
+          width: calc(100% + #{2 * $wide-offset});
+        }
+      }
+    }
+  }
+  > footer {
+    background: $main-clr;
+    color: white;
+    > div {
+    }
+  }
+}

@@ -1,0 +1,13 @@
+$colors: (
+  "fc-core-yellow": #ffdf4c,
+  "fc-core-l-grey": #ebecf1
+);
+@each $name, $color in $colors {
+  .has-#{$name}-color {
+    color: $color;
+  }
+
+  .has-#{$name}-background-color {
+    background-color: $color;
+  }
+}
