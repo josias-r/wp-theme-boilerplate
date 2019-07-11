@@ -6,7 +6,7 @@
 add_theme_support( 'post-thumbnails' );
 
 add_theme_support( 'custom-background', array(
-  'default-image'          => get_template_directory_uri().'/dist/images/404.svg',
+  'default-image'          => get_stylesheet_directory_uri().'/dist/images/404.svg',
   'default-preset'         => 'fill',
   'default-position-x'     => 'center',
   'default-position-y'     => 'center',
@@ -82,27 +82,53 @@ function cc_mime_types($mimes) {
 add_filter('upload_mimes', 'cc_mime_types');
 
 // Navigations START
-function register_my_menus() {
+function boilerplate_slug_register_menus() {
   register_nav_menus(array(
     'header-nav' => __( 'Main Navigation', 'boilerplate-slug' ),
   ));
 }
-add_action( 'init', 'register_my_menus' );
+add_action( 'init', 'boilerplate_slug_register_menus' );
 // Navigations END
 
 
 // Widgets START
-function widget_areas() {
+function boilerplate_slug_widget_areas() {
   register_sidebar( array(
     'name'          => __( 'Footer', 'boilerplate-slug' ),
     'id'            => 'boilerplate-slug-footer',
-    'before_widget' => '<div>',
-    'after_widget'  => '</div>',
+    'before_widget' => '',
+    'after_widget'  => '',
   ) );
 }
-add_action( 'widgets_init', 'widget_areas' );
+add_action( 'widgets_init', 'boilerplate_slug_widget_areas' );
 // Widgets END
 
+// Gutenberg Assets START
+function boilerplate_slug_editor_assets() {
+  wp_enqueue_style(
+    'boilerplate-slug-editor-css',
+    get_stylesheet_directory_uri() . '/admin/assets/editor.css',
+    [],
+    filemtime( get_stylesheet_directory() . '/admin/assets/editor.css' )
+  );
+  wp_enqueue_script(
+    'boilerplate-slug-editor-js',
+    get_stylesheet_directory_uri() . '/admin/assets/editor.js',
+    [ 'wp-blocks', 'wp-dom' ],
+    filemtime( get_stylesheet_directory() . '/admin/assets/editor.js' ),
+    true );
+}
+add_action( 'enqueue_block_editor_assets', 'boilerplate_slug_editor_assets' );
+function boilerplate_slug_assets() {
+  wp_enqueue_style(
+    'boilerplate-slug-css',
+    get_stylesheet_uri(),
+    [],
+    filemtime( get_stylesheet_directory() . '/style.css' )
+  );
+}
+add_action( 'enqueue_block_assets', 'boilerplate_slug_assets' );
+// Gutenberg Assets END
 
 // function custom_image_size() {
 //   // Set default values for the upload media box
