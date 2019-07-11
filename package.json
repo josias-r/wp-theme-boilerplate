@@ -5,9 +5,11 @@
   "themeURL": "localhost:8000",
   "scripts": {
     "start": "gulp",
-    "gulp:build": "gulp build",
+    "build": "gulp build",
     "gulp:css": "gulp css",
-    "gulp:js": "gulp js"
+    "gulp:js": "gulp js",
+    "gulp:watch": "gulp watch",
+    "gulp:size": "gulp size"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
@@ -37,6 +39,7 @@
   },
   "dependencies": {
     "@barba/core": "^2.3.12",
-    "core-js": "^3.1.4"
+    "core-js": "^3.1.4",
+    "regenerator-runtime": "^0.13.2"
   }
 }
