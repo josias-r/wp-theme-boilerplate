@@ -1,5 +1,9 @@
     <footer>
-      <div><?php _e( 'Footer Content', 'boilerplate-slug' ) ?></div>
+      <div>
+        <?php if ( is_active_sidebar( 'boilerplate-slug-footer' ) ) : ?>
+          <?php dynamic_sidebar( 'boilerplate-slug-footer' ); ?>
+        <?php endif; ?>
+      </div>
     </footer>
   </main>
   <!-- Scripts START -->
