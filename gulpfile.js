@@ -20,17 +20,19 @@ const log = require("fancy-log");
 const browserSync = require("browser-sync").create();
 const size = require("gulp-size");
 const sourcemaps = require("gulp-sourcemaps");
+const gulpif = require("gulp-if");
+const argv = require("yargs").argv;
 const p = require("./package.json");
 
 const css = () => {
   return gulp
     .src("src/stylesheets/**/*.scss", { base: "src" })
     .pipe(sass().on("error", sass.logError))
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(cleanCSS())
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write())
-    .pipe(size({ showFiles: true, showTotal: false }))
+    .pipe(gulpif(!argv.quick, sourcemaps.init({ loadMaps: true })))
+    .pipe(gulpif(!argv.quick, cleanCSS()))
+    .pipe(gulpif(!argv.quick, autoprefixer()))
+    .pipe(gulpif(!argv.quick, sourcemaps.write()))
+    .pipe(gulpif(!argv.quick, size({ showFiles: true, showTotal: false })))
     .pipe(gulp.dest("dist"))
     .pipe(browserSync.stream());
 };
@@ -47,10 +49,12 @@ const js = () => {
     })
     .pipe(source("main.bundle.js"))
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true, largeFile: true }))
-    .pipe(uglifyjs())
-    .pipe(sourcemaps.write("map"))
-    .pipe(size({ showFiles: true, showTotal: false }))
+    .pipe(
+      gulpif(!argv.quick, sourcemaps.init({ loadMaps: true, largeFile: true }))
+    )
+    .pipe(gulpif(!argv.quick, uglifyjs()))
+    .pipe(gulpif(!argv.quick, sourcemaps.write("map")))
+    .pipe(gulpif(!argv.quick, size({ showFiles: true, showTotal: false })))
     .pipe(gulp.dest("dist/javascripts"));
 };
 
