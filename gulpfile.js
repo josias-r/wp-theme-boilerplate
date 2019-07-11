@@ -93,5 +93,7 @@ const watch = () => {
 
 exports.css = css;
 exports.js = js;
+exports.watch = watch;
+exports.size = buildSize;
 exports.build = gulp.series(css, js, buildSize);
 exports.default = gulp.series(css, js, watch);
