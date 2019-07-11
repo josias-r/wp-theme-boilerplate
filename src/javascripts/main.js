@@ -1,4 +1,5 @@
 import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 import GL from "./libs/go-light";
 import barba from "@barba/core";
