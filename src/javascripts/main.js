@@ -4,6 +4,8 @@ import "regenerator-runtime/runtime";
 import GL from "./libs/go-light";
 import barba from "@barba/core";
 
+import "../stylesheets/main.scss";
+
 // Initial Animations
 const initAnimations = () => {
   if (GL.checkIE()) document.body.classList.add("browser-warning");
