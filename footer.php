@@ -7,8 +7,7 @@
     </footer>
   </main>
   <!-- Scripts START -->
-  <!-- MainJS -->
-  <script src="<?php bloginfo('template_url'); ?>/dist/javascripts/main.bundle.js"></script>
+  <script src="<?php echo get_theme_file_uri( 'assets/main.bundle.js' ); ?>"></script>
   <!-- Scripts END -->
   <?php wp_footer(); ?>
 </body>

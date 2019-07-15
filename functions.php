@@ -6,7 +6,7 @@
 add_theme_support( 'post-thumbnails' );
 
 add_theme_support( 'custom-background', array(
-  'default-image'          => get_stylesheet_directory_uri().'/dist/images/404.svg',
+  'default-image'          => get_stylesheet_directory_uri().'/assets/images/404.svg',
   'default-preset'         => 'fill',
   'default-position-x'     => 'center',
   'default-position-y'     => 'center',

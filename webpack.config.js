@@ -1,25 +1,38 @@
 const path = require("path");
+const pjson = require("./package.json");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-// const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const options = {
+  publicPath: `/wp-content/themes/${path.basename(path.resolve())}`
+};
 
 module.exports = {
+  mode: "development",
   entry: "./src/javascripts/main.js",
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "build"),
+    publicPath: `${options.publicPath}/assets/`,
+    path: path.resolve(__dirname, "assets"),
     filename: "main.bundle.js"
   },
-  devServer: {
-    proxy: {
-      "/": {
-        target: "http://localhost:8000",
-        changeOrigin: true
-      }
-    }
-  },
   optimization: {
-    minimizer: [new UglifyJsPlugin()]
+    minimizer: [
+      new UglifyJsPlugin({
+        parallel: true,
+        sourceMap: true
+      })
+    ]
   },
+  plugins: [
+    new BrowserSyncPlugin({
+      port: pjson.themeConf.port || 3000,
+      proxy: pjson.themeConf.proxyURL || "localhost:8000",
+      files: ["**.php"]
+    }),
+    new MiniCssExtractPlugin({})
+  ],
   module: {
     rules: [
       {
@@ -37,13 +50,32 @@ module.exports = {
         use: [
           "style-loader",
           {
-            loader: "css-loader",
-            options: { importLoaders: 2 }
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: "../",
+              hmr: process.env.NODE_ENV === "development"
+            }
           },
-          "postcss-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 2,
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true
+            }
+          },
           {
             loader: "sass-loader",
-            options: { sourceMap: true }
+            options: {
+              sourceMap: true
+            }
           }
         ]
       }
