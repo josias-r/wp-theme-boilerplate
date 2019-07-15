@@ -16,8 +16,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
   <!-- Stylesheets START -->
-  <!-- Main -->
-  <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/dist/stylesheets/main.css">
+  <link rel="stylesheet" href="<?php echo get_theme_file_uri( 'assets/main.css' ); ?>">
   <!-- Stylesheets END -->
   <!-- Head Hook -->
   <?php wp_head(); ?>
