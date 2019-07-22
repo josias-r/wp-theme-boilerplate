@@ -1,11 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap");
+
 @import "modules/variables";
 @import "modules/mixins";
+@import "modules/keyframes";
 
 @import "partials/normalize";
 @import "partials/elements";
-@import "partials/gutenberg";
+@import "partials/wordpress";
 @import "partials/typo";
-@import "partials/keyframes";
+
+@import "pages/home";
 
 ::selection {
   background: $main-clr;
@@ -19,7 +23,7 @@ main {
   height: 100%;
 }
 body {
-  background: $mid;
+  background-color: $mid;
   font-family: "Montserrat", sans-serif;
   &.browser-warning {
     main {
@@ -32,19 +36,24 @@ main {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  background-color: $mid;
+  // content grid with
   > nav,
   > footer,
   > div.container {
     > div {
+      padding: 2em 1em;
       margin: auto;
       max-width: $desktop;
     }
   }
-  div.container {
+  > div.container {
+    // stretch so footer stays stuck to botton
     flex: 1 0 auto;
     > div {
       > .content {
         position: relative;
+        // gutenberg wide & full alignments
         > .alignfull {
           margin-left: calc(50% - 50vw);
           width: 100vw;
@@ -61,8 +70,9 @@ main {
   }
   > footer {
     background: $main-clr;
-    color: white;
-    > div {
+    color: $light;
+    a {
+      color: inherit;
     }
   }
 }

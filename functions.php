@@ -42,13 +42,13 @@ add_theme_support( 'align-wide' );
 
 // add_theme_support( 'editor-color-palette', array(
 //   array(
-//     'name' => __( 'Yellow', 'boilerplate-slug' ),
-//     'slug' => 'boilerplate-slug-yellow',
-//     'color' => __( '#FFDF4C', 'boilerplate-slug' ),
+//     'name' => __( 'Main Color', 'boilerplate-slug' ),
+//     'slug' => 'boilerplate-slug-main',
+//     'color' => __( '#59384f', 'boilerplate-slug' ),
 //   ),
 //   array(
-//     'name' => 'Light Grey',
-//     'slug' => 'boilerplate-slug-l-grey',
+//     'name' => __( 'Light Grey', 'boilerplate-slug' ),
+//     'slug' => 'boilerplate-slug-mid',
 //     'color' => '#EBECF1',
 //   ),
 // ) );
