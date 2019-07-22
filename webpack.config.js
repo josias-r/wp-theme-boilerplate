@@ -1,21 +1,75 @@
 const path = require("path");
+const zlib = require("zlib");
 const pjson = require("./package.json");
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const devMode = process.env.NODE_ENV !== "production";
 const options = {
+  target:
+    (pjson.themeConf && pjson.themeConf.proxyURL) || "http://localhost:8000",
+  port: pjson.themeConf && pjson.themeConf.port,
   publicPath: `/wp-content/themes/${path.basename(path.resolve())}`
 };
 
+console.log("devMode: " + devMode);
+
+const proxyRes = (proxyRes, req, res) => {
+  let body = new Buffer.from("");
+  proxyRes.on("data", data => {
+    body = Buffer.concat([body, data]);
+  });
+  proxyRes.on("end", () => {
+    let encoding;
+    let type;
+    if (proxyRes.headers) {
+      encoding =
+        proxyRes.headers["content-encoding"] ||
+        proxyRes.headers["Content-Encoding"];
+      type =
+        proxyRes.headers["content-type"] || proxyRes.headers["Content-Type"];
+    }
+
+    if (encoding === "gzip" && (type && type.includes("text/html"))) {
+      zlib.gunzip(body, function(err, dezipped) {
+        body = dezipped.toString("utf-8");
+        res.writeHead(200, {
+          "Content-Type": "text/html; charset=UTF-8"
+        });
+        body = body.replace(/localhost:8000/g, `localhost:${options.port}`);
+        res.end(body);
+      });
+    } else {
+      res.end(body);
+    }
+  });
+};
+
 module.exports = {
-  mode: "development",
+  mode: process.env.NODE_ENV || "development",
   entry: "./src/javascripts/main.js",
   devtool: "source-map",
   output: {
     publicPath: `${options.publicPath}/assets/`,
     path: path.resolve(__dirname, "assets"),
     filename: "main.bundle.js"
+  },
+  devServer: {
+    publicPath: `${options.publicPath}/assets/`,
+    clientLogLevel: "silent",
+    hot: true,
+    inline: true,
+    compress: true,
+    port: options.port,
+    proxy: {
+      "**": {
+        selfHandleResponse: true,
+        target: options.target,
+        changeOrigin: true,
+        onProxyRes: proxyRes
+      }
+    }
   },
   optimization: {
     minimizer: [
@@ -25,14 +79,7 @@ module.exports = {
       })
     ]
   },
-  plugins: [
-    new BrowserSyncPlugin({
-      port: pjson.themeConf.port || 3000,
-      proxy: pjson.themeConf.proxyURL || "localhost:8000",
-      files: ["**.php"]
-    }),
-    new MiniCssExtractPlugin({})
-  ],
+  plugins: [new MiniCssExtractPlugin({})],
   module: {
     rules: [
       {
@@ -52,10 +99,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              // you can specify a publicPath here
-              // by default it uses publicPath in webpackOptions.output
-              publicPath: "../",
-              hmr: process.env.NODE_ENV === "development"
+              hmr: devMode
             }
           },
           {

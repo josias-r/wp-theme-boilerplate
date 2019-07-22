@@ -13,6 +13,7 @@ const initAnimations = () => {
 
 //DOM Ready
 document.addEventListener("DOMContentLoaded", function() {
+  console.log("loaded.");
   initAnimations();
 
   let previous_scroll_position;
