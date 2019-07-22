@@ -9,12 +9,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 const options = {
   target:
-    (pjson.themeConf && pjson.themeConf.proxyURL) || "http://localhost:8000",
+    (pjson.themeConf && pjson.themeConf.proxyTarget) || "http://localhost:8000",
+  host: (pjson.themeConf && pjson.themeConf.host) || "localhost",
   port: (pjson.themeConf && pjson.themeConf.port) || 8080,
   publicPath: `/wp-content/themes/${path.basename(path.resolve())}`
 };
 
-console.log("devMode: " + devMode);
+console.log(`devMode: ${devMode}`);
+console.log(`Target: ${options.target}`);
+console.log(`Host: ${options.host}`);
+console.log(`Port: ${options.port}`);
 
 const proxyRes = (proxyRes, req, res) => {
   let body = new Buffer.from("");
@@ -22,20 +26,15 @@ const proxyRes = (proxyRes, req, res) => {
     body = Buffer.concat([body, data]);
   });
   proxyRes.on("end", () => {
-    let encoding;
-    let type;
-    if (proxyRes.headers) {
-      encoding = proxyRes.headers["content-encoding"] || "";
-      type = proxyRes.headers["content-type"] || "";
-    } else {
-      res.end("No headers?");
-    }
+    const encoding = proxyRes.headers["content-encoding"] || "";
+    const type = proxyRes.headers["content-type"] || "";
+    delete proxyRes.headers["x-powered-by"];
 
     if (type.includes("text/html")) {
-      const modifyBody = new Promise((resolve, reject) => {
+      const ungzip = new Promise((resolve, reject) => {
         if (encoding === "gzip") {
           zlib.gunzip(body, (err, dezipped) => {
-            body = dezipped.toString("utf-8");
+            body = dezipped;
             delete proxyRes.headers["content-encoding"];
             if (err) reject(err);
             resolve();
@@ -44,19 +43,20 @@ const proxyRes = (proxyRes, req, res) => {
           resolve();
         }
       });
-      modifyBody
+      ungzip
         .then(() => {
+          const re = new RegExp(options.target, "g");
           body = body
             .toString("utf-8")
-            .replace(/localhost:8000/g, `localhost:${options.port}`);
-          res.writeHead(200, proxyRes.headers);
+            .replace(re, `http://${options.host}:${options.port}`);
+          res.writeHead(proxyRes.statusCode, proxyRes.headers);
           res.end(body);
         })
         .catch(err => {
           res.end(err);
         });
     } else {
-      res.writeHead(200, proxyRes.headers);
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
       res.end(body);
     }
   });
@@ -93,6 +93,7 @@ module.exports = {
     inline: true,
     compress: true,
     port: options.port,
+    host: options.host,
     proxy: {
       "**": {
         selfHandleResponse: true,
