@@ -1,2 +1,3 @@
 # WordPress Theme Boilerplate
-Sass, Barba JS, GoLight JS, Prettier
+
+Webpack, Sass, Barba JS, GoLight JS, Prettier
