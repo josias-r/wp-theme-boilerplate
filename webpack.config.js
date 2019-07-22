@@ -9,7 +9,7 @@ const devMode = process.env.NODE_ENV !== "production";
 const options = {
   target:
     (pjson.themeConf && pjson.themeConf.proxyURL) || "http://localhost:8000",
-  port: pjson.themeConf && pjson.themeConf.port,
+  port: (pjson.themeConf && pjson.themeConf.port) || 8080,
   publicPath: `/wp-content/themes/${path.basename(path.resolve())}`
 };
 
@@ -24,23 +24,38 @@ const proxyRes = (proxyRes, req, res) => {
     let encoding;
     let type;
     if (proxyRes.headers) {
-      encoding =
-        proxyRes.headers["content-encoding"] ||
-        proxyRes.headers["Content-Encoding"];
-      type =
-        proxyRes.headers["content-type"] || proxyRes.headers["Content-Type"];
+      encoding = proxyRes.headers["content-encoding"] || "";
+      type = proxyRes.headers["content-type"] || "";
+    } else {
+      res.end("No headers?");
     }
 
-    if (encoding === "gzip" && (type && type.includes("text/html"))) {
-      zlib.gunzip(body, function(err, dezipped) {
-        body = dezipped.toString("utf-8");
-        res.writeHead(200, {
-          "Content-Type": "text/html; charset=UTF-8"
-        });
-        body = body.replace(/localhost:8000/g, `localhost:${options.port}`);
-        res.end(body);
+    if (type.includes("text/html")) {
+      const modifyBody = new Promise((resolve, reject) => {
+        if (encoding === "gzip") {
+          zlib.gunzip(body, (err, dezipped) => {
+            body = dezipped.toString("utf-8");
+            delete proxyRes.headers["content-encoding"];
+            if (err) reject(err);
+            resolve();
+          });
+        } else {
+          resolve();
+        }
       });
+      modifyBody
+        .then(() => {
+          body = body
+            .toString("utf-8")
+            .replace(/localhost:8000/g, `localhost:${options.port}`);
+          res.writeHead(200, proxyRes.headers);
+          res.end(body);
+        })
+        .catch(err => {
+          res.end(err);
+        });
     } else {
+      res.writeHead(200, proxyRes.headers);
       res.end(body);
     }
   });
