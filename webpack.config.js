@@ -2,18 +2,23 @@ const path = require("path");
 const zlib = require("zlib");
 const pjson = require("./package.json");
 
+const chokidar = require("chokidar");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 const options = {
   target:
-    (pjson.themeConf && pjson.themeConf.proxyURL) || "http://localhost:8000",
-  port: pjson.themeConf && pjson.themeConf.port,
+    (pjson.themeConf && pjson.themeConf.proxyTarget) || "http://localhost:8000",
+  host: (pjson.themeConf && pjson.themeConf.host) || "localhost",
+  port: (pjson.themeConf && pjson.themeConf.port) || 8080,
   publicPath: `/wp-content/themes/${path.basename(path.resolve())}`
 };
 
-console.log("devMode: " + devMode);
+console.log(`devMode: ${devMode}`);
+console.log(`Target: ${options.target}`);
+console.log(`Host: ${options.host}`);
+console.log(`Port: ${options.port}`);
 
 const proxyRes = (proxyRes, req, res) => {
   let body = new Buffer.from("");
@@ -21,26 +26,37 @@ const proxyRes = (proxyRes, req, res) => {
     body = Buffer.concat([body, data]);
   });
   proxyRes.on("end", () => {
-    let encoding;
-    let type;
-    if (proxyRes.headers) {
-      encoding =
-        proxyRes.headers["content-encoding"] ||
-        proxyRes.headers["Content-Encoding"];
-      type =
-        proxyRes.headers["content-type"] || proxyRes.headers["Content-Type"];
-    }
+    const encoding = proxyRes.headers["content-encoding"] || "";
+    const type = proxyRes.headers["content-type"] || "";
+    delete proxyRes.headers["x-powered-by"];
 
-    if (encoding === "gzip" && (type && type.includes("text/html"))) {
-      zlib.gunzip(body, function(err, dezipped) {
-        body = dezipped.toString("utf-8");
-        res.writeHead(200, {
-          "Content-Type": "text/html; charset=UTF-8"
-        });
-        body = body.replace(/localhost:8000/g, `localhost:${options.port}`);
-        res.end(body);
+    if (type.includes("text/html")) {
+      const ungzip = new Promise((resolve, reject) => {
+        if (encoding === "gzip") {
+          zlib.gunzip(body, (err, dezipped) => {
+            body = dezipped;
+            delete proxyRes.headers["content-encoding"];
+            if (err) reject(err);
+            resolve();
+          });
+        } else {
+          resolve();
+        }
       });
+      ungzip
+        .then(() => {
+          const re = new RegExp(options.target, "g");
+          body = body
+            .toString("utf-8")
+            .replace(re, `http://${options.host}:${options.port}`);
+          res.writeHead(proxyRes.statusCode, proxyRes.headers);
+          res.end(body);
+        })
+        .catch(err => {
+          res.end(err);
+        });
     } else {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
       res.end(body);
     }
   });
@@ -56,12 +72,28 @@ module.exports = {
     filename: "main.bundle.js"
   },
   devServer: {
+    before: (app, server) => {
+      const files = ["**/*.php"];
+
+      chokidar
+        .watch(files, {
+          alwaysStat: true,
+          atomic: false,
+          followSymlinks: false,
+          ignoreInitial: true,
+          ignorePermissionErrors: true
+        })
+        .on("all", () => {
+          server.sockWrite(server.sockets, "content-changed");
+        });
+    },
     publicPath: `${options.publicPath}/assets/`,
     clientLogLevel: "silent",
     hot: true,
     inline: true,
     compress: true,
     port: options.port,
+    host: options.host,
     proxy: {
       "**": {
         selfHandleResponse: true,

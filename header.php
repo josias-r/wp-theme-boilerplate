@@ -13,8 +13,6 @@
     <meta name="description" content="<?php bloginfo('description'); ?>">
     <meta name="og:description" content="<?php bloginfo('description'); ?>">
   <?php endif; ?>
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
   <!-- Stylesheets START -->
   <link rel="stylesheet" href="<?php echo get_theme_file_uri( 'assets/main.css' ); ?>">
   <!-- Stylesheets END -->

@@ -13,41 +13,8 @@ const initAnimations = () => {
 
 //DOM Ready
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("loaded.");
+  let scrollPos = 0;
   initAnimations();
-
-  let previous_scroll_position;
-  let last_known_scroll_position = 0;
-  let ticking = false;
-
-  function doSomething(scroll_pos, prev_scroll_pos) {
-    if (scroll_pos > prev_scroll_pos) {
-      document.querySelector("main > nav").classList.add("hidden", "scrolled");
-    }
-    if (scroll_pos < prev_scroll_pos) {
-      document.querySelector("main > nav").classList.remove("hidden");
-    }
-    if (scroll_pos == 0) {
-      document
-        .querySelector("main > nav")
-        .classList.remove("hidden", "scrolled");
-    }
-  }
-  window.addEventListener("scroll", function() {
-    previous_scroll_position = last_known_scroll_position;
-    last_known_scroll_position = window.pageYOffset;
-
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        doSomething(last_known_scroll_position, previous_scroll_position);
-        ticking = false;
-      });
-
-      ticking = true;
-    }
-  });
-
-  document.addEventListener("click", () => {});
 
   barba.init({
     // debug: true,
@@ -64,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // sync: true,
         leave() {},
         afterLeave(d) {
+          scrollPos = d.current.container.scrollTop;
           d.current.container.parentNode.removeChild(d.current.container);
-          GL.scrollTo(0, 100, d.next.container);
         },
         beforeEnter(d) {
           let html = document.createElement("html");
@@ -75,7 +42,16 @@ document.addEventListener("DOMContentLoaded", function() {
           const bodyClasses = html.querySelector("body").className;
           document.body.className = bodyClasses;
         },
-        after() {
+        after(d) {
+          GL.scrollTo(scrollPos, 0, d.next.container);
+          if (d.trigger.hash) {
+            const targetEl = document.querySelector(d.trigger.hash);
+            const offsetTop = targetEl.getBoundingClientRect().top;
+            GL.scrollTo(offsetTop + scrollPos - 10, 400, d.next.container);
+          } else {
+            GL.scrollTo(0, 100, d.next.container);
+          }
+
           initAnimations();
         }
       }
