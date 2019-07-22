@@ -72,6 +72,9 @@ add_theme_support( 'wp-block-styles' );
 add_theme_support( 'responsive-embeds' );
 
 add_post_type_support( 'page', 'excerpt' );
+// add_filter( 'excerpt_length', function($length) {
+//   return 10;
+// } );
 // Theme Supports END
 
 // SVG Support
