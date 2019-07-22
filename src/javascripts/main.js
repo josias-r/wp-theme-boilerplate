@@ -13,41 +13,7 @@ const initAnimations = () => {
 
 //DOM Ready
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("loaded.");
   initAnimations();
-
-  let previous_scroll_position;
-  let last_known_scroll_position = 0;
-  let ticking = false;
-
-  function doSomething(scroll_pos, prev_scroll_pos) {
-    if (scroll_pos > prev_scroll_pos) {
-      document.querySelector("main > nav").classList.add("hidden", "scrolled");
-    }
-    if (scroll_pos < prev_scroll_pos) {
-      document.querySelector("main > nav").classList.remove("hidden");
-    }
-    if (scroll_pos == 0) {
-      document
-        .querySelector("main > nav")
-        .classList.remove("hidden", "scrolled");
-    }
-  }
-  window.addEventListener("scroll", function() {
-    previous_scroll_position = last_known_scroll_position;
-    last_known_scroll_position = window.pageYOffset;
-
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        doSomething(last_known_scroll_position, previous_scroll_position);
-        ticking = false;
-      });
-
-      ticking = true;
-    }
-  });
-
-  document.addEventListener("click", () => {});
 
   barba.init({
     // debug: true,
