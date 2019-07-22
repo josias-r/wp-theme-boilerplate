@@ -5,24 +5,48 @@ h4,
 h5,
 h6 {
   font-family: "Montserrat", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 1em;
 }
 p {
   margin-bottom: 2em;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 1em;
-}
-
 a {
   color: $main-clr;
   transition: opacity 0.4s ease;
-  &:active {
-    opacity: 0.8;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+hr {
+  border: 1.5px solid $main-clr;
+}
+
+input,
+textarea {
+  padding: 12px 24px;
+  background: $light;
+  border: 2px solid $light;
+  &:focus {
+    border-bottom-color: $main-clr;
+  }
+}
+
+.btn,
+input[type="button"],
+input[type="submit"] {
+  display: inline-block;
+  padding: 12px 24px;
+  background: $main-clr;
+  color: $light;
+  border: 2px solid $light;
+  cursor: pointer;
+  transition: 0.4s ease;
+  text-decoration: none;
+  &:hover {
+    opacity: 1;
+    background: $mid;
+    border-color: $main-clr;
+    color: $main-clr;
   }
 }
