@@ -2,6 +2,7 @@ const path = require("path");
 const zlib = require("zlib");
 const pjson = require("./package.json");
 
+const chokidar = require("chokidar");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -71,6 +72,21 @@ module.exports = {
     filename: "main.bundle.js"
   },
   devServer: {
+    before: (app, server) => {
+      const files = ["**/*.php"];
+
+      chokidar
+        .watch(files, {
+          alwaysStat: true,
+          atomic: false,
+          followSymlinks: false,
+          ignoreInitial: true,
+          ignorePermissionErrors: true
+        })
+        .on("all", () => {
+          server.sockWrite(server.sockets, "content-changed");
+        });
+    },
     publicPath: `${options.publicPath}/assets/`,
     clientLogLevel: "silent",
     hot: true,
