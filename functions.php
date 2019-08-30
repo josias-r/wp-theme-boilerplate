@@ -1,6 +1,6 @@
 <?php
 // Disable Admin Bar
-// add_filter('show_admin_bar', '__return_false');
+// show_admin_bar( false );
 
 // Theme Supports START
 add_theme_support( 'post-thumbnails' );

@@ -19,18 +19,24 @@ console.log(`devMode: ${devMode}`);
 console.log(`Target: ${options.target}`);
 console.log(`Host: ${options.host}`);
 console.log(`Port: ${options.port}`);
+console.log(`Public Path: ${options.publicPath}`);
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 
 const proxyRes = (proxyRes, req, res) => {
+  // catch body data stream
   let body = new Buffer.from("");
   proxyRes.on("data", data => {
     body = Buffer.concat([body, data]);
   });
   proxyRes.on("end", () => {
+    // set headers
     const encoding = proxyRes.headers["content-encoding"] || "";
     const type = proxyRes.headers["content-type"] || "";
     delete proxyRes.headers["x-powered-by"];
 
+    // only change for html (ignore images etc.)
     if (type.includes("text/html")) {
+      // handle gzip
       const ungzip = new Promise((resolve, reject) => {
         if (encoding === "gzip") {
           zlib.gunzip(body, (err, dezipped) => {
@@ -48,6 +54,7 @@ const proxyRes = (proxyRes, req, res) => {
           const re = new RegExp(options.target, "g");
           body = body
             .toString("utf-8")
+            // replace all hyperlinks
             .replace(re, `http://${options.host}:${options.port}`);
           res.writeHead(proxyRes.statusCode, proxyRes.headers);
           res.end(body);
@@ -73,8 +80,8 @@ module.exports = {
   },
   devServer: {
     before: (app, server) => {
+      // watch PHP files
       const files = ["**/*.php"];
-
       chokidar
         .watch(files, {
           alwaysStat: true,
@@ -88,9 +95,7 @@ module.exports = {
         });
     },
     publicPath: `${options.publicPath}/assets/`,
-    clientLogLevel: "silent",
     hot: true,
-    inline: true,
     compress: true,
     port: options.port,
     host: options.host,
@@ -147,12 +152,7 @@ module.exports = {
               sourceMap: true
             }
           },
-          {
-            loader: "sass-loader",
-            options: {
-              sourceMap: true
-            }
-          }
+          "sass-loader"
         ]
       }
     ]
