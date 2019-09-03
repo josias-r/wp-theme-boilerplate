@@ -1,4 +1,4 @@
-> I'm currently working on moving the webpack configuration into it's own npm package, which will make upgrading much easier in the future.
+> I'm currently working on moving the webpack configuration into its own npm package, which will make upgrading much easier in the future.
 
 # WordPress Theme Boilerplate
 
