@@ -29,3 +29,9 @@ Inside the `package.json` there are the following arguments optional for the wpt
 - `-h` or `--host`: default: `localhost`
 - `-P` or `--proxy`: default: `http://localhost:8000`
 - `--publicPath`: default: `/wp-content/themes/FOLDER_BASENAME`
+
+## Donate
+
+You can buy me a cup of coffee, if you'd like ^^
+
+[![Donate](https://www.paypalobjects.com/en_US/CH/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXJFXBX8XLYXQ&source=url)
