@@ -1,8 +1,8 @@
-> I'm currently working on moving the webpack configuration into its own npm package, which will make upgrading much easier in the future.
-
 # WordPress Theme Boilerplate
 
 Webpack dev server, Sass, Barba JS, GoLight JS, Prettier
+
+Develop wordpress themes with this convinient setup.
 
 ### Installation
 
@@ -20,12 +20,12 @@ To start the development server run `npm start`
 
 To build for a release run `npm run build`
 
-To build without production flag run `npm run build:dev`
-
 ### Configuration
 
-Inside the `package.json` there are the following configurations inside `themeConf`:
+Inside the `package.json` there are the following arguments optional for the wptb-scripts `start` and `build` scripts:
 
-- `"proxyTarget"`: `string` (default: `"http://localhost:8000"`)
-- `"host"`: `string` (default: `"localhost"`)
-- `"port"`: `number` (default: `8080`)
+- `-e` or `--entry`: default: `/YOUR_PROCESS_CWD/src/javascripts/main.js` (you can pass an array for mutiple entry points)
+- `-p` or `--port`: default: `8080`
+- `-h` or `--host`: default: `localhost`
+- `-P` or `--proxy`: default: `http://localhost:8000`
+- `--publicPath`: default: `/wp-content/themes/FOLDER_BASENAME`
