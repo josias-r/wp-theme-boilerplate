@@ -2,7 +2,7 @@
 
 Webpack dev server, Sass, Barba JS, GoLight JS, Prettier
 
-Develop wordpress themes with this convinient setup.
+Develop WordPress themes with this convenient setup.
 
 ### Installation
 
