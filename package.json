@@ -2,44 +2,26 @@
   "name": "boilerplate-slug",
   "version": "1.0.2",
   "private": true,
-  "themeConf": {},
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "cross-env NODE_ENV='production' webpack -p",
-    "build:dev": "webpack"
+    "start": "wptb-scripts start",
+    "build": "wptb-scripts build"
   },
   "browserslist": [
     "defaults"
   ],
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "chokidar": "^3.0.2",
     "cross-env": "^5.2.1",
-    "css-loader": "^3.2.0",
-    "cssnano": "^4.1.10",
     "eslint": "^6.2.2",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "file-loader": "^4.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
     "prettier": "^1.18.2",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-prettier": "^5.2.0",
-    "stylelint-prettier": "^1.1.1",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "stylelint-prettier": "^1.1.1"
   },
   "dependencies": {
     "@barba/core": "^2.6.0",
+    "@josias-r/wptb-scripts": "^1.0.0",
     "core-js": "^3.2.1",
     "regenerator-runtime": "^0.13.3"
   }
