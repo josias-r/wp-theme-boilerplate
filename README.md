@@ -2,7 +2,15 @@
 
 Webpack dev server, Sass, Barba JS, GoLight JS, Prettier
 
-Develop WordPress themes with this convenient setup.
+Conveniently develop WordPress themes with ES6 and SCSS and watch your changes refresh live.
+
+### Features
+
+- **SCSS**: Modular CSS with variables and functions
+- **Modern JavaScript**: Write Javascript using the latest syntax.
+- **Modular JavaScript**: Split your JS files into multiple files for better organization and import NPM libraries.
+- **HMR**: Watch your changes live while developing
+- **Browser support**: With the help of Babel and Browserslist everything will be compiled to support old Browsers
 
 ### Installation
 
