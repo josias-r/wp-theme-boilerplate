@@ -30,7 +30,7 @@ To start the development server run `npm start`
 
 To build for a release run `npm run build`
 
-### [Configuration](#configuration)
+### Configuration
 
 Inside the `package.json` there are the following arguments optional for the wptb-scripts `start` and `build` scripts:
 
