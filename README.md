@@ -42,6 +42,7 @@ Inside the `package.json` there are the following arguments optional for the wpt
   - The host on which you can preview your changes
 - `-P` or `--proxy`: *default*: `http://localhost:8000`
   - The URL (include *http://*) on which your local WordPress installation runs on.
+  - If you are only making small changes to an no-local website css and js should get hot-loaded anyway.
 - `--publicPath`: *default*: `/wp-content/themes/FOLDER_BASENAME`
   - The path where your proxied files are available.
 
