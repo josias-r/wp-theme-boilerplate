@@ -1,9 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap");
+
+// Company or theme color
 $main-clr: #59384f;
 
+// Grayscale
 $light: #ffffff;
 $mid: #ebecf1;
 $dark: #4d4f4e;
 
+// Breakpoints
 $desktop: 1280px;
 $tablet: 768px;
 $mobile: 480px;
+
+// Font-Family imported on top:
+$main-font: $main-font;

@@ -4,6 +4,7 @@ import "regenerator-runtime/runtime";
 import GL from "./libs/go-light";
 import barba from "@barba/core";
 
+// Import all your SCSS from here and don't forget to link it inside your <head> / header.php
 import "../stylesheets/main.scss";
 
 // Initial Animations

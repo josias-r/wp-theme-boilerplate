@@ -1,10 +1,11 @@
+// Typography
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: $main-font;
   font-weight: 600;
   margin-bottom: 1em;
 }
@@ -13,10 +14,6 @@ p {
 }
 a {
   color: $main-clr;
-  transition: opacity 0.4s ease;
-  &:hover {
-    opacity: 0.6;
-  }
 }
 hr {
   border: 1.5px solid $main-clr;
