@@ -46,8 +46,8 @@
         'current' => $paged,
         'total'   => $query->max_num_pages,
         'mid_size'        => 2,
-        'prev_text'       => __('&laquo;'),
-        'next_text'       => __('&raquo;')
+        'prev_text'       => __('previous', 'boilerplate-slug'),
+        'next_text'       => __('next', 'boilerplate-slug')
         ) );
         ?>
       </div>
