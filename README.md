@@ -34,8 +34,9 @@ To build for a release run `npm run build`
 
 Inside the `package.json` there are the following arguments optional for the wptb-scripts `start` and `build` scripts:
 
-- `-e` or `--entry`: *default*: `/YOUR_PROCESS_CWD/src/javascripts/main.js`
-  - Single path or array of paths to your main JavaScript files.
+- `-e` or `--entryFiles`: *default*: `/YOUR_PROCESS_CWD/src/javascripts/main.js`
+  - Single path or array of paths to your main JavaScript files (absolute paths or relative to your process.cwd).
+  - Example: `--entryFiles={src/main.js,src/blocks/gb-block.js}`
 - `-p` or `--port`: *default*: `8080`
   - The port on which you can preview your changes
 - `-h` or `--host`: *default*: `localhost`
