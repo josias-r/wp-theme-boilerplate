@@ -18,21 +18,19 @@ GL.forEach = (array, callback, scope) => {
 GL.hasClass = (el, cls) => {
   const str = " " + el.className + " ";
   const testCls = " " + cls + " ";
-  return str.indexOf(testCls) != -1 ? el : false;
+  return str.indexOf(testCls) !== -1 ? el : false;
 };
 
 GL.isDescendant = (target, descendant) => {
   let node = target;
   while (
-    node != null &&
+    node !== null &&
     node !== document.body &&
     node !== document.documentElement
   ) {
     if (typeof descendant === "string") {
       if (node.matches(descendant)) return node;
-    } else {
-      if (node == target) return node;
-    }
+    } else if (node === target) return node;
     node = node.parentNode;
   }
   return false;
@@ -54,8 +52,8 @@ GL.scrollTo = (to, duration, element) => {
       return (-c / 2) * (t * (t - 2) - 1) + b;
     },
     animateScroll = () => {
-      let currentDate = +new Date();
-      let currentTime = currentDate - startDate;
+      const currentDate = +new Date();
+      const currentTime = currentDate - startDate;
       element.scrollTop = parseInt(
         easeInOutQuad(currentTime, start, change, duration)
       );

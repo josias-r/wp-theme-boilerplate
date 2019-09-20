@@ -12,7 +12,7 @@ Conveniently develop WordPress themes with ES6 and SCSS and watch your page upda
 - **HMR**: Watch your changes live while developing
 - **Browser support**: With the help of Babel and Browserslist everything will be compiled to support old Browsers
 - **Linters**: [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) and [stylelint](https://stylelint.io/) will help you while developing. (Make sure you have the corresponding packages installed for your editor)
-- **Customizable**: All the above features origin from wptb-scripts which allows you to pass custom settings for your environment. [see configuration](#configuration)
+- **Customizable**: All the above features origin from wpds-scripts which allows you to pass custom settings for your environment. [see configuration](#configuration)
 
 ### Installation
 
@@ -32,19 +32,19 @@ To build for a release run `npm run build`
 
 ### Configuration
 
-Inside the `package.json` there are the following arguments optional for the wptb-scripts `start` and `build` scripts:
+Inside the `package.json` there are the following arguments optional for the wpds-scripts `start` and `build` scripts:
 
-- `-e` or `--entryFiles`: *default*: `/YOUR_PROCESS_CWD/src/javascripts/main.js`
+- `-e` or `--entryFiles`: _default_: `/YOUR_PROCESS_CWD/src/javascripts/main.js`
   - Single path or array of paths to your main JavaScript files (absolute paths or relative to your process.cwd).
   - Example: `--entryFiles={src/main.js,src/blocks/gb-block.js}`
-- `-p` or `--port`: *default*: `8080`
+- `-p` or `--port`: _default_: `8080`
   - The port on which you can preview your changes
-- `-h` or `--host`: *default*: `localhost`
+- `-h` or `--host`: _default_: `localhost`
   - The host on which you can preview your changes
-- `-P` or `--proxy`: *default*: `http://localhost:8000`
-  - The URL (include *http://*) on which your local WordPress installation runs on.
+- `-P` or `--proxy`: _default_: `http://localhost:8000`
+  - The URL (include _http://_) on which your local WordPress installation runs on.
   - If you are only making small changes to an no-local website css and js should get hot-loaded anyway.
-- `--publicPath`: *default*: `/wp-content/themes/FOLDER_BASENAME`
+- `--publicPath`: _default_: `/wp-content/themes/FOLDER_BASENAME`
   - The path where your proxied files are available.
 
 ## Donate

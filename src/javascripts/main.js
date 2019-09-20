@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
           d.current.container.parentNode.removeChild(d.current.container);
         },
         beforeEnter(d) {
-          let html = document.createElement("html");
+          const html = document.createElement("html");
           html.innerHTML = d.next.html.trim();
 
           // Update Body Classes

@@ -1,13 +1,17 @@
 {
   "name": "boilerplate-slug",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
-    "start": "wptb-scripts start",
-    "build": "wptb-scripts build"
+    "start": "wpds-scripts start",
+    "build": "wpds-scripts build"
   },
+  "author": "josias-r",
+  "license": "ISC",
   "devDependencies": {
-    "@josias-r/wptb-scripts": "^1.2.1",
+    "@babel/preset-react": "^7.0.0",
+    "@josias-r/wpds-scripts": "^2.1.1",
+    "@wordpress/eslint-plugin": "^3.1.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.1",
