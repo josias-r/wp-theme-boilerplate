@@ -4,6 +4,8 @@ Webpack dev server, Sass, Barba JS, GoLight JS, Prettier
 
 Conveniently develop WordPress themes with ES6 and SCSS and watch your page update live.
 
+_You might also be interested in: [wp-plugin-boilerplate](https://github.com/josias-r/wp-plugin-boilerplate)_
+
 ### Features
 
 - **SCSS**: Modular CSS with variables and functions
