@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-slug",
-  "version": "2.3.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "wpds-scripts start",
@@ -10,13 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-react": "^7.6.3",
-    "@josias-r/wpds-scripts": "^2.1.2",
+    "@josias-r/wpds-scripts": "^3.1.1",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
     "prettier": "^1.18.2",
     "stylelint": "^11.1.1",
-    "stylelint-config-prettier": "^5.3.0",
+    "stylelint-config-prettier": "^6.0.0",
     "stylelint-prettier": "^1.1.1"
   },
   "dependencies": {
