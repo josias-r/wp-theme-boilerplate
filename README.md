@@ -1,4 +1,6 @@
-# WordPress Theme Boilerplate
+# WordPack Theme Boilerplate
+
+A webpack dev server to work with WordPress themes.
 
 Webpack dev server, Sass, Barba JS, GoLight JS, Prettier, WordPress Coding Standard
 
