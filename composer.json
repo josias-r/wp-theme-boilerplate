@@ -2,8 +2,7 @@
     "name": "josias-r/wp-theme-boilerplate",
     "description": "WordPack Theme Boilerplate by josias-r",
     "type": "project",
-    "require": {
-    },
+    "require": {},
     "license": "MIT",
     "authors": [
         {
@@ -18,5 +17,6 @@
     },
     "scripts": {
         "post-install-cmd": "phpcs --config-set default_standard WordPress-Extra"
-    }
+    },
+    "version": "2.0.1"
 }
