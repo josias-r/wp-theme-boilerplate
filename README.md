@@ -17,7 +17,7 @@ _You might also be interested in: [wp-plugin-boilerplate](https://github.com/jos
 - **Browser support**: With the help of Babel and Browserslist everything will be compiled to support old Browsers
 - **Linters**: [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) and [stylelint](https://stylelint.io/) will help you while developing. (Make sure you have the corresponding packages installed for your editor)
 - **WordPress PHP Coding Standard**: The WordPress-Extra coding standard for phpcs is installed with composer and will guide you to code according to the rules set by WordPress.
-- **Customizable**: Most of the above features origin from wpds-scripts which allows you to pass custom settings for your environment. [see configuration](#configuration)
+- **Customizable**: Most of the above features origin from wpds-scripts which allows you to pass custom settings for your environment. [see configuration](https://github.com/josias-r/wpds-scripts#config-file-configuration)
 
 ### Installation
 
