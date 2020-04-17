@@ -12,14 +12,14 @@ function boilerplate_slug_assets() {
 	wp_enqueue_style(
 		'boilerplate-slug-main-css',
 		get_stylesheet_directory_uri() . $main_css_path,
-		[],
+		array(),
 		filemtime( get_stylesheet_directory() . $main_css_path )
 	);
 	$main_js_path = '/assets/main.bundle.js';
 	wp_enqueue_script(
 		'boilerplate-slug-main-js',
 		get_stylesheet_directory_uri() . $main_js_path,
-		[],
+		array(),
 		filemtime( get_stylesheet_directory() . $main_js_path ),
 		true
 	);
@@ -150,14 +150,14 @@ function boilerplate_slug_block_editor_assets() {
 	wp_enqueue_style(
 		'boilerplate-slug-editor-css',
 		get_stylesheet_directory_uri() . $gb_editor_css_path,
-		[],
+		array(),
 		filemtime( get_stylesheet_directory() . $gb_editor_css_path )
 	);
 	$gb_editor_js_path = '/admin/assets/editor.js';
 	wp_enqueue_script(
 		'boilerplate-slug-editor-js',
 		get_stylesheet_directory_uri() . $gb_editor_js_path,
-		[ 'wp-blocks', 'wp-dom' ],
+		array( 'wp-blocks', 'wp-dom' ),
 		filemtime( get_stylesheet_directory() . $gb_editor_js_path ),
 		true
 	);
@@ -168,7 +168,7 @@ function boilerplate_slug_block_assets() {
 	wp_enqueue_style(
 		'boilerplate-slug-css',
 		get_stylesheet_uri(),
-		[],
+		array(),
 		filemtime( get_stylesheet_directory() . '/style.css' )
 	);
 }

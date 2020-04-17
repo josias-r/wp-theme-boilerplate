@@ -13,7 +13,7 @@ const initAnimations = () => {
 };
 
 //DOM Ready
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   let scrollPos = 0;
   initAnimations();
 
@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
           }
 
           initAnimations();
-        }
-      }
-    ]
+        },
+      },
+    ],
   });
 });
